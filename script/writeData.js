@@ -4,7 +4,7 @@ function writeData(data){
         for(let i = 0; i < data.length;i++){
             console.log(`Group ${data[i].group}:`)
             for(let j = 0; j < data[i].matches.length;j++){
-                console.log(`\t${data[i].matches[j].team1.team} - ${data[i].matches[j].team2.team} (${data[i].matches[j].team1.points} : ${data[i].matches[j].team2.points}) winner: ${data[i].matches[j].winner}`)
+                console.log(`\t${data[i].matches[j].Team1.Team} - ${data[i].matches[j].Team2.Team} (${data[i].matches[j].Team1.Score} : ${data[i].matches[j].Team2.Score}) winner: ${data[i].matches[j].Winner} Looser: ${data[i].matches[j].Looser} Surrender: ${data[i].matches[j].Surrender}`)
             }
         }
     }
