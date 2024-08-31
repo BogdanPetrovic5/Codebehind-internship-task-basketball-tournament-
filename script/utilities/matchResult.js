@@ -1,5 +1,3 @@
-const { writeData } = require('./writeData.js')
-const results = []
 function calculateWinProbability(team1, team2){
     const rankDifference = team1.FIBARanking - team2.FIBARanking;
     const winProbability = 1 / (1 + Math.exp((rankDifference) / 10));
@@ -17,7 +15,7 @@ function getLooserPoints(winnerPoints, looserLowerEdge){
     return looserPoints
 }
 
-function simulateMatch(team1, team2){
+function matchResult(team1, team2){
     const lowerEdge = 80
     const higherEdge = 110
 
@@ -71,28 +69,4 @@ function simulateMatch(team1, team2){
     }
 
 }
-function simulateGroupMatches(groups){
-    for (const group in groups) {
-        if (Object.hasOwn(groups, group)) {
-            const teams = groups[group];
-            const groupResult = { group: group, matches: [] };
-            for(let i = 0; i < teams.length;i++){
-                for(let j = i+1; j < teams.length;j++){
-                    if(teams[i].Team != teams[j].Team){
-                        const team1 = teams[i]
-                        const team2 = teams[j]
-                        const matchResult = simulateMatch(team1, team2)
-                        groupResult.matches.push(matchResult);
-                    }
-                }
-                
-            }
-            results.push(groupResult);
-            
-        }
-        
-    }
-    writeData(results)
-    return results;
-}
-module.exports = {simulateGroupMatches}
+module.exports = {matchResult}

@@ -8,12 +8,12 @@ function modifyGroups(groups){
                 team.PointsDifference = 0
                 team.TotalWins = 0
                 team.TotalLoses = 0
+                team.Rang = 0
             }
         })
     })
     return groups
 }
-
 
 function updateGroups(team, match) { 
     team = calculateTotalScore(team,match)
@@ -22,7 +22,7 @@ function updateGroups(team, match) {
     team = calculatePointsDifference(team)
     team = calculateWinsLoses(team, match)
     return team
- }
+}
 
 function calculateWinsLoses(team, match){
     if(team.Team === match.Winner){
@@ -32,6 +32,7 @@ function calculateWinsLoses(team, match){
     }
     return team
 }
+
 function calculateTotalScore(team, match) { 
     if(team.Team === match.Team1.Team){
         team.TotalScore += match.Team1.Score
@@ -41,6 +42,7 @@ function calculateTotalScore(team, match) {
 
     return team
 }
+
 function calculateTotalPoints(team, match) { 
     if(team.Team === match.Winner){
         team.Points += 2
@@ -48,7 +50,8 @@ function calculateTotalPoints(team, match) {
         team.Points += 1
     }
     return team;
- }
+}
+
 function calculateTotalAllowedPoints(team, match){
     if(team.Team === match.Team1.Team){
         team.AllowedPoints += match.Team2.Score
@@ -57,10 +60,12 @@ function calculateTotalAllowedPoints(team, match){
     }
     return team
 }
+
 function calculatePointsDifference(team) { 
     team.PointsDifference = team.TotalScore - team.AllowedPoints
     return team;
- }
+}
+
 function calculateTotalEffect(groups, results){
  
     groups = modifyGroups(groups);
@@ -68,7 +73,6 @@ function calculateTotalEffect(groups, results){
         group.forEach(team =>{
            results.forEach(groupResults=>{
             groupResults.matches.forEach(match=>{
-                
                 team = updateGroups(team, match)
             })
            })
