@@ -20,9 +20,7 @@ function simulateMatches(groups){
                     }
                 }
             }
-
             results.push(groupResult);
-            
         }
         
     }

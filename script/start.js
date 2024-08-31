@@ -1,10 +1,23 @@
 const {determinePlayOffMatches} = require('./utilities/determinePlayOffMatches.js');
 const {eliminateTeams} = require('./utilities/eliminateTeams.js')
-const { getQuarterFinalresults, getSemifinalResults, getThirdPlaceResults,getPot, getFinalsResult, getFinalist, getRunnerUp,getThirdPlacer, getGroupResults,updateGroups, eliminateFromGroups, getPlayOffs,showMedalists, processRound} = require('./tournament.js')
+const { modifyGroups } = require('./utilities/modifyGroups.js');
+const { 
+    getQuarterFinalresults, 
+    getSemifinalResults, 
+    getThirdPlaceResults,
+    getPot, 
+    getFinalsResult, 
+    getFinalist, 
+    getRunnerUp,
+    getThirdPlacer, 
+    getGroupResults,
+    updateGroups, 
+    eliminateFromGroups, 
+    getPlayOffs,
+    showMedalists
+} = require('./tournament.js');
 
 
-var results = []
-var pot = {}
 var playOffs = {}
 var semiFinals = {}
 var finals = {}
@@ -17,8 +30,10 @@ var semiFinalsLoosers = {}
 function start(groups){
     //Getting matches from all groups, updating group(sorting and deleting 4. position)
     let results = getGroupResults(groups)
+    groups = modifyGroups(groups)
     groups = updateGroups(groups, results)
     groups = eliminateFromGroups(groups)
+
     let numberOfKeys = Object.keys(groups).length;
 
     //Drawing a pot. 'D' 'E' 'F' 'G'
@@ -27,7 +42,7 @@ function start(groups){
 
     //Forming play off matches
     playOffs = getPlayOffs(pot, playOffs, numberOfKeys)
-
+   
     //Displaying quarterFinalsResults, and eliminating teams from quarterfinal phase.
     playOffs = eliminateTeams(playOffs, getQuarterFinalresults(playOffs, groups, numberOfKeys))
 
@@ -62,7 +77,7 @@ function start(groups){
 
     //Based on formed pairs, results are made. And displayed
     let finalsResults = getFinalsResult(finals)
-    
+   
     //Showing all medalists
     showMedalists(getFinalist(finalsCopy, finalsResults), getRunnerUp(finals, finalsResults), getThirdPlacer(thirdPlace, thirdPlaceResults))
     

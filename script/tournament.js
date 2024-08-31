@@ -23,8 +23,7 @@ function getPlayOffs(pot, playOffs, numberOfKeys) {
 }
 function eliminateFromGroups(groups){
     groups = reduceGroups(groups)
-    console.log("\nTeams that qualified for the next phase:")
-    writeGroups(groups)
+   
     return groups
 }
 function updateGroups(groups, results) { 
@@ -43,6 +42,8 @@ function getGroupResults(groups){
 function getPot(groups, numberOfKeys) { 
     rankedTeams = giveRankings(groups)
     pot = drawPot(rankedTeams,numberOfKeys, pot)
+    console.log("\nTeams that qualified for the next phase:")
+    writeGroups(groups)
     writePot(pot)
     return pot;
 }
@@ -94,10 +95,7 @@ function showMedalists(firstValue, secondValue, thirdValue){
     medalist.push(firstValue, secondValue, thirdValue)
     writeMedalists(medalist)
 }
-function processRound(playOffs, getResults, roundName) {
-    let results = getResults(playOffs);
-    return eliminateTeams(playOffs, results, roundName);
-}
+
 module.exports = {
     getQuarterFinalresults,
     getSemifinalResults, 
@@ -112,6 +110,6 @@ module.exports = {
     updateGroups, 
     eliminateFromGroups,
     getPlayOffs,
-    showMedalists, 
-    processRound
+    showMedalists
+    
 }

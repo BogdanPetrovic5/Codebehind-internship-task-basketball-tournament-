@@ -18,8 +18,8 @@ function giveRankings(groups){
         }
         index += 1;
     }
-    allRanks.forEach((team, index) => {
-        team.Rang = index + 1;
+    allRanks.forEach((team, i) => {
+        team.Rang = i + 1;
     });
     return allRanks
 }

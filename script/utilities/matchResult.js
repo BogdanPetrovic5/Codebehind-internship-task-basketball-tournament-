@@ -1,5 +1,5 @@
 function calculateWinProbability(team1, team2){
-    const rankDifference = team1.FIBARanking - team2.FIBARanking;
+    const rankDifference = (team1.FIBARanking + team1.TotalWins + team1.PointsDifference) - (team2.FIBARanking + team2.TotalWins + team2.PointsDifference);
     const winProbability = 1 / (1 + Math.exp((rankDifference) / 10));
     var winProbabilityRounded = winProbability.toFixed(2);
 

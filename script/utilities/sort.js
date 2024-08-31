@@ -3,62 +3,52 @@ function sort(groups, matches) {
         groups[group].sort((a, b) => {
             if (b.Points !== a.Points) {
                 return b.Points - a.Points;
-            }else if(b.Points == a.Points){
-                
-                let matchesTemp = matches.find(
-                    m => m.group === group
-                );
-                let match = matchesTemp.matches.find(
-                    m => (m.Winner == a.Team && m.Looser == b.Team) || (m.Winner == b.Team && m.Looser == a.Team) 
-                )
+            } else {
+                let match = findHeadToHeadMatch(a, b, group, matches);
                 if (match) {
-                    
                     return match.Winner === a.Team ? -1 : 1;
                 } else {
-                    
                     return 0;
                 }
             }
         });
     }
-    for(let group in groups){
-     
-        if(Object.hasOwn(groups, group)){
-            const team = groups[group];
-            
-            for(let i = 0; i < team.length;i++){
-                let counter = 0
+
+    for (let group in groups) {
+        if (Object.hasOwn(groups, group)) {
+            let teams = groups[group];
+
+            for (let i = 0; i < teams.length; i++) {
+                let tiedTeams = [teams[i]];
                 
-                for(let j = i + 1; j <= (i+2); j++){
-                    if(j >= team.length) break;
-                    if(team[i].Points == team[j].Points){
-                        counter+= 1
-                    }
-                    if(counter == 2){
-                        break;
-                    }
-                } 
-                if(counter == 2){
-                    for(let n = i; n <= i+1; n++){
-                        for(let j = i + 1; j <= i+2; j++){
-                            if(team[n].PointsDifference < team[j].PointsDifference){
-                                let temp = team[n]
-                                team[n] = team[j]
-                                team[j] = temp 
-                            }
-                               
-                        }
-                    }
-                    
+                for (let j = i + 1; j < teams.length && teams[i].Points === teams[j].Points; j++) {
+                    tiedTeams.push(teams[j]);
                 }
-                
-                
-               
-             
+
+                if (tiedTeams.length === 3) {
+                    tiedTeams.sort((a, b) => b.PointsDifference - a.PointsDifference);
+                    for (let k = 0; k < tiedTeams.length; k++) {
+                        teams[i + k] = tiedTeams[k];
+                    }
+
+                    i += 2; 
+                }
             }
         }
-    
     }
+
     return groups;
 }
-module.exports = {sort}
+
+function findHeadToHeadMatch(teamA, teamB, group, matches) {
+    let matchData = matches.find(m => m.group === group);
+    if (matchData) {
+        return matchData.matches.find(m => 
+            (m.Winner === teamA.Team && m.Looser === teamB.Team) || 
+            (m.Winner === teamB.Team && m.Looser === teamA.Team)
+        );
+    }
+    return null;
+}
+
+module.exports = { sort };
