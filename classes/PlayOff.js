@@ -38,7 +38,7 @@ class PlayOff{
         return playOffs;
      
     }
-    selectRandomTeam(pot){
+    #selectRandomTeam(pot){
         const keys = Object.keys(pot);
         let randomKey = Math.floor(Math.random() * keys.length);
         let key = keys[randomKey];
@@ -53,7 +53,7 @@ class PlayOff{
 
         return obj
     }
-    selectSpecificPairs(pot, index){
+    #selectSpecificPairs(pot, index){
         const keys = Object.keys(pot);
         let key = keys[index];
         let group = pot[key];
@@ -70,9 +70,9 @@ class PlayOff{
             if(Object.hasOwn(playOffs, group)){
                 for(let i = 0; i < 2; i++){
                     if(playOffType == "Quarterfinals"){
-                        playOffs[group].push(this.selectRandomTeam(potTemp))
+                        playOffs[group].push(this.#selectRandomTeam(potTemp))
                     }else if(playOffType == "Semifinals" || playOffType == "Finals" || playOffType == "Third place"){
-                        playOffs[group].push(this.selectSpecificPairs(potTemp, index))
+                        playOffs[group].push(this.#selectSpecificPairs(potTemp, index))
                     }
                     index += 1;
                 }

@@ -5,7 +5,7 @@ class Pot{
     constructor(){
         this._utilHelper = new UtilityHelper()
     }
-    addTeams(rankedTeams, pot){
+    #addTeams(rankedTeams, pot){
         let start = 0;
         for(let i in pot){
             if(Object.hasOwn(pot, i)){
@@ -21,7 +21,7 @@ class Pot{
     drawPot(rankedTeams, numberOfKeys, pot) { 
         pot = this._utilHelper.addKeys(numberOfKeys, pot);
     
-        pot = this.addTeams(rankedTeams, pot)
+        pot = this.#addTeams(rankedTeams, pot)
         return pot
        
     }

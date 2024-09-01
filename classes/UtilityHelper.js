@@ -55,7 +55,7 @@ class UtilityHelper{
                 if (b.Points !== a.Points) {
                     return b.Points - a.Points;
                 } else {
-                    let match = this.findHeadToHeadMatch(a, b, group, matches);
+                    let match = this.#findHeadToHeadMatch(a, b, group, matches);
                     if (match) {
                         return match.Winner === a.Team ? -1 : 1;
                     } else {
@@ -91,7 +91,7 @@ class UtilityHelper{
         return groups;
     }
     
-    findHeadToHeadMatch(teamA, teamB, group, matches) {
+    #findHeadToHeadMatch(teamA, teamB, group, matches) {
         let matchData = matches.find(m => m.group === group);
         if (matchData) {
             return matchData.matches.find(m => 
