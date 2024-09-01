@@ -59,7 +59,8 @@ class Output{
                 for(let i = 0; i < data.length;i++){
                     console.log(`\tGroup ${data[i].group}:`)
                     for(let j = 0; j < data[i].matches.length;j++){
-                        console.log(`\t\t${data[i].matches[j].Team1.Team} - ${data[i].matches[j].Team2.Team} (${data[i].matches[j].Team1.Score} : ${data[i].matches[j].Team2.Score}) winner: ${data[i].matches[j].Winner} Looser: ${data[i].matches[j].Looser} Surrender: ${data[i].matches[j].Surrender}`);
+                        console.log('\t', this.#printData(data, j,i))
+                       
                     }
                 }
             }
@@ -70,12 +71,16 @@ class Output{
                 for(let i = 0; i < data.length;i++){
                     if(i != 0 && i % 2 == 0) console.log("\n");
                     for(let j = 0; j < data[i].matches.length;j++){
-                        console.log(`\t${data[i].matches[j].Team1.Team} - ${data[i].matches[j].Team2.Team} (${data[i].matches[j].Team1.Score} : ${data[i].matches[j].Team2.Score}) winner: ${data[i].matches[j].Winner} Looser: ${data[i].matches[j].Looser} Surrender: ${data[i].matches[j].Surrender}`);
+                       console.log(this.#printData(data, j, i)) 
+                       
                     }
                 }
             }
             
         }
+    }
+    #printData(data, j, i){
+        return `\t${data[i].matches[j].Team1.Team} - ${data[i].matches[j].Team2.Team} (${data[i].matches[j].Team1.Score} : ${data[i].matches[j].Team2.Score})`
     }
 }
 module.exports = {Output}
