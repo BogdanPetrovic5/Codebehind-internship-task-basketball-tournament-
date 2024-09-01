@@ -2,6 +2,8 @@ class UtilityHelper{
     constructor(){
         
     }
+
+
     addKeys(numberOfKeys, draw){
         const startChar = 'D';
         let offset = numberOfKeys;
@@ -15,6 +17,7 @@ class UtilityHelper{
         return draw;
     }
   
+
     giveRankings(groups){
         let allRanks = []
         let index = 0
@@ -40,6 +43,8 @@ class UtilityHelper{
         });
         return allRanks
     }
+
+
     reduceGroups(groups){
         for(let group in groups){
              if(Object.hasOwn(groups, group)){
@@ -48,7 +53,9 @@ class UtilityHelper{
              }
         }
         return groups
-     }
+    }
+
+
     sortGroups(groups, matches) {
         for (let group in groups) {
             groups[group].sort((a, b) => {
@@ -91,16 +98,7 @@ class UtilityHelper{
         return groups;
     }
     
-    #findHeadToHeadMatch(teamA, teamB, group, matches) {
-        let matchData = matches.find(m => m.group === group);
-        if (matchData) {
-            return matchData.matches.find(m => 
-                (m.Winner === teamA.Team && m.Looser === teamB.Team) || 
-                (m.Winner === teamB.Team && m.Looser === teamA.Team)
-            );
-        }
-        return null;
-    }
+   
     modifyGroups(groups){
         Object.values(groups).forEach(group =>{
             group.forEach(team =>{
@@ -117,5 +115,19 @@ class UtilityHelper{
         })
         return groups;
     }
+
+
+    #findHeadToHeadMatch(teamA, teamB, group, matches) {
+        let matchData = matches.find(m => m.group === group);
+        if (matchData) {
+            return matchData.matches.find(m => 
+                (m.Winner === teamA.Team && m.Looser === teamB.Team) || 
+                (m.Winner === teamB.Team && m.Looser === teamA.Team)
+            );
+        }
+        return null;
+    }
+
+    
 }
 module.exports = {UtilityHelper}

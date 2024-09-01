@@ -5,6 +5,17 @@ class Pot{
     constructor(){
         this._utilHelper = new UtilityHelper()
     }
+
+
+    drawPot(rankedTeams, numberOfKeys, pot) { 
+        pot = this._utilHelper.addKeys(numberOfKeys, pot);
+    
+        pot = this.#addTeams(rankedTeams, pot)
+        return pot
+       
+    }
+
+    
     #addTeams(rankedTeams, pot){
         let start = 0;
         for(let i in pot){
@@ -18,12 +29,7 @@ class Pot{
         
        return pot
     }
-    drawPot(rankedTeams, numberOfKeys, pot) { 
-        pot = this._utilHelper.addKeys(numberOfKeys, pot);
-    
-        pot = this.#addTeams(rankedTeams, pot)
-        return pot
-       
-    }
+
+
 }
 module.exports = {Pot}

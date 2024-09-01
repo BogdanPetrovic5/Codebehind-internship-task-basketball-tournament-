@@ -2,10 +2,14 @@ const { PhaseOutcomeEvaluator } = require("./PhaseOutcomeEvaluator");
 const { UtilityHelper } = require("./UtilityHelper");
 
 class PlayOff{
+
+    
     constructor(){
         this._utilHelper = new UtilityHelper()
         this._phaseOutcome = new PhaseOutcomeEvaluator()
     }
+
+
     eliminateTeams(playOffs, playOffsResults, parameter){
         for(let group in playOffs){
             if(Object.hasOwn(playOffs, group)){
@@ -38,29 +42,8 @@ class PlayOff{
         return playOffs;
      
     }
-    #selectRandomTeam(pot){
-        const keys = Object.keys(pot);
-        let randomKey = Math.floor(Math.random() * keys.length);
-        let key = keys[randomKey];
-        let group = pot[key];
-        let randomIndex = Math.floor(Math.random()*group.length);
-        let obj = group[randomIndex];
-        pot[key].splice(randomIndex,1);
-        if(group.length < 1){
-            delete pot[key]
-            keys.splice(randomKey, 1);
-        }
 
-        return obj
-    }
-    #selectSpecificPairs(pot, index){
-        const keys = Object.keys(pot);
-        let key = keys[index];
-        let group = pot[key];
-        let obj = group[0];
 
-        return obj;
-    }
     determinePlayOffMatches(pot, playOffs, numberOfKeys, playOffType){
         let potTemp = pot;
         playOffs = this._utilHelper.addKeys(numberOfKeys-1,playOffs);
@@ -82,5 +65,36 @@ class PlayOff{
 
         return playOffs;
     }
+
+
+    
+
+    #selectRandomTeam(pot){
+        const keys = Object.keys(pot);
+        let randomKey = Math.floor(Math.random() * keys.length);
+        let key = keys[randomKey];
+        let group = pot[key];
+        let randomIndex = Math.floor(Math.random()*group.length);
+        let obj = group[randomIndex];
+        pot[key].splice(randomIndex,1);
+        if(group.length < 1){
+            delete pot[key]
+            keys.splice(randomKey, 1);
+        }
+
+        return obj
+    }
+
+
+    #selectSpecificPairs(pot, index){
+        const keys = Object.keys(pot);
+        let key = keys[index];
+        let group = pot[key];
+        let obj = group[0];
+
+        return obj;
+    }
+
+    
 }
 module.exports = {PlayOff}

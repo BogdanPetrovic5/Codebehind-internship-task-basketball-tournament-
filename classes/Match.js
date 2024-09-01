@@ -3,6 +3,34 @@ class Match{
     constructor(){
         
     }
+    
+    
+    simulateMatches(groups){
+        const results = []
+        for (const group in groups) {
+            if (Object.hasOwn(groups, group)) {
+    
+                const teams = groups[group];
+                const groupResult = { group: group, matches: [] };
+    
+                for(let i = 0; i < teams.length;i++){
+                    for(let j = i+1; j < teams.length;j++){
+                        if(teams[i].Team != teams[j].Team){
+                            const team1 = teams[i];
+                            const team2 = teams[j];
+                            const result = this.#matchResult(team1, team2)
+                            groupResult.matches.push(result);
+                        }
+                    }
+                }
+                results.push(groupResult);
+            }
+        }
+        
+        return results;
+    }
+
+
     #calculateWinProbability(team1, team2){
         const rankDifference = (-team1.FIBARanking + team1.TotalWins - team1.TotalLoses + team1.PointsDifference) - (-team2.FIBARanking + team2.TotalWins - team2.TotalLoses + team2.PointsDifference);
    
@@ -12,16 +40,20 @@ class Match{
         return winProbabilityRounded;
     }
     
+
     #getWinnerPoints(higherEdge, lowerEdge){
         const winnerPoints = Math.floor(Math.random() * (higherEdge - lowerEdge + 1)) + lowerEdge;
         return winnerPoints;
     }
+
+
     #getLooserPoints(winnerPoints, looserLowerEdge){
         const looserPoints = Math.floor(Math.random() * (winnerPoints - (winnerPoints - 15))) + (winnerPoints - 15);
 
         return looserPoints;
     }
     
+
     #matchResult(team1, team2){
         const lowerEdge = 80;
         const higherEdge = 110;
@@ -82,30 +114,6 @@ class Match{
            
         }
     
-    }
-    simulateMatches(groups){
-        const results = []
-        for (const group in groups) {
-            if (Object.hasOwn(groups, group)) {
-    
-                const teams = groups[group];
-                const groupResult = { group: group, matches: [] };
-    
-                for(let i = 0; i < teams.length;i++){
-                    for(let j = i+1; j < teams.length;j++){
-                        if(teams[i].Team != teams[j].Team){
-                            const team1 = teams[i];
-                            const team2 = teams[j];
-                            const result = this.#matchResult(team1, team2)
-                            groupResult.matches.push(result);
-                        }
-                    }
-                }
-                results.push(groupResult);
-            }
-        }
-        
-        return results;
     }
 }
 module.exports = {Match}

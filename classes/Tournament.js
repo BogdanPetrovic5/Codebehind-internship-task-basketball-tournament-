@@ -21,6 +21,7 @@ class Tournament{
         this._finals = {};
     }
 
+
     start(groups){
         groups = this.#handleGroups(groups);
         let numberOfKeys = Object.keys(groups).length;
@@ -33,6 +34,7 @@ class Tournament{
         this.#runFinals(numberOfKeys);
     }
     
+
     #runFinals(numberOfKeys){
          
         this._finals = this._playOff.determinePlayOffMatches(this._semiFinals, this._finals, numberOfKeys, 'Finals');
@@ -41,6 +43,7 @@ class Tournament{
 
         this._tournamentService.showMedalists(this._tournamentService.getFinalist( finalsCopy, this._finalsResults), this._tournamentService.getRunnerUp( this._finals, this._finalsResults), this._tournamentService.getThirdPlacer(this._thirdPlace, this._thirdPlaceResults));
     }
+
 
     #runSemifinals(numberOfKeys){
         this._semiFinals = this._playOff.determinePlayOffMatches(this._playOffs, this._semiFinals, numberOfKeys, "Semifinals");
@@ -52,6 +55,7 @@ class Tournament{
         this._thirdPlaceResults = this._tournamentService.getThirdPlaceResults(this._thirdPlace);
     }
 
+
     #runQuarterFinals(pot, numberOfKeys){
         this._playOffs=  this._tournamentService.getPlayOffs(pot, this._playOffs, numberOfKeys);
         let quarterfinalResults= this._tournamentService.getQuarterfinalResults(this._playOffs);
@@ -59,11 +63,14 @@ class Tournament{
         
     }
 
+
     #handleGroups(groups){
         groups = this._utilHelper.modifyGroups(groups);
         this._results = this._tournamentService.getGroupResults(groups);
         groups = this._tournamentService.updateGroups(groups, this._results);
         return groups;
     }
+
+    
 }
 module.exports = {Tournament}

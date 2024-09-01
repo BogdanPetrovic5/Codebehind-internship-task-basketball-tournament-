@@ -2,12 +2,16 @@ class Output{
     constructor(){
 
     }
+
+    
     writeMedalists(medalist){
         console.log("\nMedalists: ")
         for(let i =0; i<medalist.length; i++){
             console.log(`\t${i + 1}: ${medalist[i].Team}`);
         }
     }
+
+
     writePlayOffs(playOffs, text){
         console.log(`\n${text}: `)
         let counter = 0;
@@ -22,6 +26,8 @@ class Output{
             counter += 1;
         }
     }
+
+
     writePot(pot){
         for(let group in pot){
             if(Object.hasOwn(pot, group)){
@@ -33,6 +39,8 @@ class Output{
             }
         }
     }
+
+
     writeGroups(groups) {
         for (let group in groups) {
             if (Object.hasOwn(groups, group)) {
@@ -52,6 +60,8 @@ class Output{
             }
         }
     }
+
+
     writeMatchResults(data, phase){
         if(phase.Phase === "Group"){
             if(data != undefined || data != null){
@@ -79,8 +89,12 @@ class Output{
             
         }
     }
+
+
     #printData(data, j, i){
         return `\t${data[i].matches[j].Team1.Team} - ${data[i].matches[j].Team2.Team} (${data[i].matches[j].Team1.Score} : ${data[i].matches[j].Team2.Score})`
     }
+
+
 }
 module.exports = {Output}

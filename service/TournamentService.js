@@ -6,6 +6,7 @@ const { Pot } = require("../classes/Pot")
 const { UtilityHelper } = require("../classes/UtilityHelper")
 
 class TournamentService{
+    
     constructor(){
         this._match = new Match()
         this._utilHelper = new UtilityHelper()
@@ -26,6 +27,8 @@ class TournamentService{
 
         return this._results;
     }
+
+
     updateGroups(groups, results){
         groups = this._utilHelper.modifyGroups(groups);
         groups = this._phaseOutcome.calculateTotalEffect(groups, results);
@@ -36,6 +39,8 @@ class TournamentService{
 
         return groups;
     }
+
+
     getPot(groups, keysLength){
         this._rankedTeams = this._utilHelper.giveRankings(groups);
         this._pot = this._potDrawer.drawPot(this._rankedTeams, keysLength, this._pot);
@@ -45,12 +50,16 @@ class TournamentService{
 
         return this._pot;
     }
+
+
     getPlayOffs(pot, playOffs, numberOfKeys){
         playOffs =  this._playOff.determinePlayOffMatches(pot, playOffs, numberOfKeys, "Quarterfinals");
         this._output.writePlayOffs(playOffs, "Play of matches");
 
         return playOffs;
     }
+
+
     getQuarterfinalResults(playOffs){
         let quarterfinalResults = this._match.simulateMatches(playOffs);
         let phase = {Phase:"Play offs", Type:"Quarterfinals"};
@@ -58,6 +67,8 @@ class TournamentService{
 
         return quarterfinalResults;
     }
+
+
     getSemifinalResults(semifinals){
         let semifinalsResults = this._match.simulateMatches(semifinals);
         let phase = {Phase:"Play offs", Type:"Semifinals"};
@@ -65,6 +76,8 @@ class TournamentService{
 
         return semifinalsResults;
     }
+
+    
     getThirdPlaceResults(thirdPlace){
         let thirdPlaceResults = this._match.simulateMatches(thirdPlace);
         let phase = {Phase:"Play offs", Type:"Third place:"};
@@ -72,6 +85,8 @@ class TournamentService{
 
         return thirdPlaceResults
     }
+
+    
     getFinalsResults(finals){
         let finalsResults = this._match.simulateMatches(finals);
         let phase = {Phase:"Play offs", Type:"Finals"};
@@ -79,6 +94,8 @@ class TournamentService{
 
         return finalsResults;
     }
+
+
     getFinalist(finalsCopy, finalsResults){
         let finalist = this._playOff.eliminateTeams(finalsCopy, finalsResults, "Winners");
         let first = Object.keys(finalist)[0];
@@ -86,12 +103,16 @@ class TournamentService{
 
         return firstValue;
     }
+
+    
     getRunnerUp(finals, finalsResults){
         let finalistRunnerUp = this._playOff.eliminateTeams(finals, finalsResults, "Loosers");
         let second = Object.keys(finalistRunnerUp)[0];
         let secondValue = finalistRunnerUp[second][0];
         return secondValue;
     }
+
+
     getThirdPlacer(thirdPlace, thirdPlaceResults) { 
         let thirdPlaceWinner = this._playOff.eliminateTeams(thirdPlace, thirdPlaceResults, "Winners");
         let third = Object.keys(thirdPlaceWinner)[0];
@@ -99,6 +120,8 @@ class TournamentService{
 
         return thirdValue;
     }
+
+
     showMedalists(firstValue, secondValue, thirdValue){
         this._medalist.push(firstValue, secondValue, thirdValue);
         this._output.writeMedalists( this._medalist);

@@ -1,7 +1,7 @@
 
 const { group, error } = require('console');
 const { Data } = require('../service/DataService.js');
-const { Tournament } = require('./tournament.js');
+const { Tournament } = require('./Tournament.js');
 
 class App{
     
@@ -10,7 +10,10 @@ class App{
        this._tournament = new Tournament()
        this._groups = {}
     }
+
+
     async main(){
+        
         try{
             this._groups = await this._dataService.fetchData();
         }catch{
